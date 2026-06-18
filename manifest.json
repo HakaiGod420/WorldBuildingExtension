@@ -1,0 +1,16 @@
+{
+  "display_name": "World Building",
+  "loading_order": 100,
+  "requires": [],
+  "optional": [],
+  "dependencies": [],
+  "js": "index.js",
+  "css": "style.css",
+  "author": "WorldBuildingExtension",
+  "version": "1.0.0",
+  "homePage": "https://github.com/WorldBuildingExtension/WorldBuildingExtension",
+  "auto_update": true,
+  "hooks": {
+    "activate": "onActivate"
+  }
+}

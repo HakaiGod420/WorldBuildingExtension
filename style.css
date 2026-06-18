@@ -1,0 +1,422 @@
+/* ==================== Base ==================== */
+
+.wb-ext {
+    box-sizing: border-box;
+}
+
+.wb-ext *,
+.wb-ext *::before,
+.wb-ext *::after {
+    box-sizing: inherit;
+}
+
+/* ==================== Layout Rows ==================== */
+
+.wb-ext__row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin: 0.35rem 0;
+}
+
+.wb-ext__row label {
+    min-width: 8rem;
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+
+.wb-ext__row--setting {
+    padding: 0.15rem 0;
+}
+
+/* ==================== Status & Hints ==================== */
+
+.wb-ext__status {
+    display: block;
+    margin-top: 0.2rem;
+    opacity: 0.7;
+    font-size: 0.8rem;
+}
+
+.wb-ext__hint {
+    display: block;
+    opacity: 0.5;
+    font-size: 0.7rem;
+    margin-top: 0.1rem;
+}
+
+/* ==================== Form Controls ==================== */
+
+.wb-ext__checkbox {
+    flex-shrink: 0;
+    width: 1rem;
+    height: 1rem;
+}
+
+.wb-ext__select {
+    flex: 1;
+    min-width: 0;
+}
+
+/* ==================== Divider ==================== */
+
+.wb-ext__divider {
+    border: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    margin: 0.6rem 0;
+}
+
+/* ==================== Buttons ==================== */
+
+.wb-ext__btn {
+    width: 100%;
+    text-align: center;
+    font-size: 0.85rem;
+    padding: 0.4rem 0.75rem;
+}
+
+.wb-ext__btn--create {
+    background-color: rgba(76, 175, 80, 0.2);
+    border-color: rgba(76, 175, 80, 0.35);
+    margin-top: 0.5rem;
+}
+
+.wb-ext__btn--create:hover {
+    background-color: rgba(76, 175, 80, 0.35);
+}
+
+.wb-ext__btn--create:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+}
+
+.wb-ext__btn--generate {
+    width: 100%;
+    background-color: rgba(76, 175, 80, 0.25);
+    border-color: rgba(76, 175, 80, 0.45);
+    margin-top: 0.4rem;
+}
+
+.wb-ext__btn--generate:hover {
+    background-color: rgba(76, 175, 80, 0.4);
+}
+
+.wb-ext__btn--generate:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+}
+
+.wb-ext__btn--save {
+    background-color: rgba(33, 150, 243, 0.25);
+    border-color: rgba(33, 150, 243, 0.45);
+}
+
+.wb-ext__btn--save:hover {
+    background-color: rgba(33, 150, 243, 0.4);
+}
+
+/* ==================== World List ==================== */
+
+.wb-ext__list-header {
+    display: flex;
+    align-items: baseline;
+    gap: 0.4rem;
+    margin: 0.5rem 0 0.4rem 0;
+}
+
+.wb-ext__list-count {
+    font-size: 0.75rem;
+    opacity: 0.5;
+}
+
+.wb-ext__world-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.wb-ext__empty {
+    text-align: center;
+    opacity: 0.4;
+    padding: 0.75rem 0;
+    font-size: 0.8rem;
+}
+
+/* ==================== World Card ==================== */
+
+.wb-ext__world-card {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    padding: 0.5rem 0.6rem;
+    background-color: rgba(0, 0, 0, 0.15);
+    transition: border-color 0.2s, background-color 0.2s;
+}
+
+.wb-ext__world-card--active {
+    border-color: rgba(76, 175, 80, 0.45);
+    background-color: rgba(76, 175, 80, 0.04);
+    border-left: 3px solid #66bb6a;
+}
+
+.wb-ext__world-card:hover {
+    border-color: rgba(255, 255, 255, 0.2);
+    background-color: rgba(255, 255, 255, 0.02);
+}
+
+.wb-ext__world-card--active:hover {
+    border-color: rgba(76, 175, 80, 0.55);
+}
+
+/* ==================== World Card Header ==================== */
+
+.wb-ext__world-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.4rem;
+    margin-bottom: 0.25rem;
+}
+
+.wb-ext__world-card-name {
+    font-weight: 600;
+    font-size: 0.9rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.wb-ext__world-card-actions {
+    display: flex;
+    gap: 0.3rem;
+    flex-shrink: 0;
+}
+
+.wb-ext__world-card-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    padding: 0;
+}
+
+.wb-ext__world-card-btn--edit {
+    background-color: rgba(33, 150, 243, 0.15);
+    border: 1px solid rgba(33, 150, 243, 0.25);
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.wb-ext__world-card-btn--edit:hover {
+    background-color: rgba(33, 150, 243, 0.3);
+    color: #fff;
+}
+
+.wb-ext__world-card-btn--delete {
+    background-color: rgba(244, 67, 54, 0.12);
+    border: 1px solid rgba(244, 67, 54, 0.22);
+    color: rgba(255, 255, 255, 0.45);
+}
+
+.wb-ext__world-card-btn--delete:hover {
+    background-color: rgba(244, 67, 54, 0.35);
+    color: #fff;
+}
+
+/* ==================== World Card Preview ==================== */
+
+.wb-ext__world-card-preview {
+    font-size: 0.78rem;
+    opacity: 0.65;
+    line-height: 1.35;
+    margin-bottom: 0.25rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.wb-ext__world-card-meta {
+    font-size: 0.68rem;
+    opacity: 0.4;
+}
+
+.wb-ext__world-card-click {
+    margin-top: 0.35rem;
+    font-size: 0.72rem;
+    opacity: 0.45;
+    cursor: pointer;
+    transition: opacity 0.15s;
+}
+
+.wb-ext__world-card-click:hover {
+    opacity: 0.75;
+}
+
+.wb-ext__world-card--active .wb-ext__world-card-click {
+    color: #66bb6a;
+    opacity: 0.7;
+}
+
+/* ==================== Modal ==================== */
+
+.wb-ext__modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.65);
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    z-index: 10001;
+    overflow-y: auto;
+    padding: 1.5rem 0.5rem;
+    animation: wbe-fade-in 0.15s ease;
+}
+
+.wb-ext__modal {
+    background: #1e1e2e;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 12px;
+    padding: 1.4rem;
+    width: 34rem;
+    max-width: 95vw;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+    margin: auto;
+}
+
+@keyframes wbe-fade-in {
+    from { opacity: 0; transform: translateY(-8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.wb-ext__modal-title {
+    margin: 0 0 0.8rem 0;
+    font-size: 1.05rem;
+}
+
+.wb-ext__modal-label {
+    display: block;
+    margin-bottom: 0.3rem;
+    font-weight: 600;
+    font-size: 0.82rem;
+    opacity: 0.85;
+}
+
+.wb-ext__modal-name {
+    width: 100%;
+    margin-bottom: 0.8rem;
+    font-size: 0.9rem;
+}
+
+/* ==================== Modal Generation Section ==================== */
+
+.wb-ext__modal-gen-section {
+    margin-bottom: 0.7rem;
+    padding: 0.6rem;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.wb-ext__modal-gen-prompt {
+    width: 100%;
+    resize: vertical;
+    font-size: 0.82rem;
+}
+
+/* ==================== Modal Sections ==================== */
+
+.wb-ext__modal-sections {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    max-height: 50vh;
+    overflow-y: auto;
+    padding-right: 0.3rem;
+    margin-bottom: 0.8rem;
+}
+
+.wb-ext__modal-section-field {
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 5px;
+    padding: 0.4rem 0.5rem;
+    background: rgba(0, 0, 0, 0.12);
+}
+
+.wb-ext__modal-section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    margin-bottom: 0.25rem;
+}
+
+.wb-ext__modal-section-label {
+    font-size: 0.78rem;
+    font-weight: 600;
+    opacity: 0.7;
+}
+
+.wb-ext__modal-section-ai-btn {
+    font-size: 0.68rem;
+    padding: 0.15rem 0.5rem;
+    background-color: rgba(103, 58, 183, 0.2);
+    border: 1px solid rgba(103, 58, 183, 0.35);
+    color: rgba(255, 255, 255, 0.6);
+    border-radius: 4px;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: background-color 0.15s, color 0.15s;
+}
+
+.wb-ext__modal-section-ai-btn:hover:not(:disabled) {
+    background-color: rgba(103, 58, 183, 0.4);
+    color: #fff;
+}
+
+.wb-ext__modal-section-ai-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.wb-ext__modal-section-textarea {
+    width: 100%;
+    resize: vertical;
+    font-size: 0.78rem;
+    min-height: 2.4rem;
+    background: rgba(0, 0, 0, 0.2);
+}
+
+/* ==================== Modal Button Row ==================== */
+
+.wb-ext__modal-btn-row {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: flex-end;
+}
+
+/* ==================== Responsive ==================== */
+
+@media screen and (max-width: 600px) {
+    .wb-ext__row {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .wb-ext__row label {
+        min-width: 0;
+    }
+
+    .wb-ext__modal {
+        width: 100%;
+        padding: 1rem;
+    }
+
+    .wb-ext__modal-sections {
+        max-height: 40vh;
+    }
+
+    .wb-ext__world-card-header {
+        flex-wrap: wrap;
+    }
+}
