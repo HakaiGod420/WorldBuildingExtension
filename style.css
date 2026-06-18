@@ -387,6 +387,118 @@
     background: rgba(0, 0, 0, 0.2);
 }
 
+/* ==================== Rules List ==================== */
+
+.wb-ext__rules-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.wb-ext__rules-items {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.wb-ext__rules-item {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.3rem 0.4rem;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.03);
+    transition: border-color 0.15s;
+}
+
+.wb-ext__rules-item:hover {
+    border-color: rgba(255, 255, 255, 0.15);
+}
+
+.wb-ext__rules-item-text {
+    flex: 1;
+    font-size: 0.78rem;
+    cursor: pointer;
+    opacity: 0.8;
+    transition: opacity 0.15s;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.wb-ext__rules-item-text:hover {
+    opacity: 1;
+}
+
+.wb-ext__rules-item-input {
+    flex: 1;
+    font-size: 0.78rem;
+    padding: 0.15rem 0.3rem;
+    min-width: 0;
+}
+
+.wb-ext__rules-item-actions {
+    display: flex;
+    gap: 0.2rem;
+    flex-shrink: 0;
+}
+
+.wb-ext__rules-item-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.3rem;
+    height: 1.3rem;
+    border-radius: 3px;
+    font-size: 0.6rem;
+    padding: 0;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: background-color 0.15s, color 0.15s;
+}
+
+.wb-ext__rules-item-btn--remove {
+    background-color: rgba(244, 67, 54, 0.12);
+    border-color: rgba(244, 67, 54, 0.22);
+    color: rgba(255, 255, 255, 0.45);
+}
+
+.wb-ext__rules-item-btn--remove:hover {
+    background-color: rgba(244, 67, 54, 0.35);
+    color: #fff;
+}
+
+.wb-ext__rules-add {
+    display: flex;
+    gap: 0.35rem;
+    margin-top: 0.15rem;
+}
+
+.wb-ext__rules-add-input {
+    flex: 1;
+    font-size: 0.78rem;
+    padding: 0.25rem 0.4rem;
+    min-width: 0;
+}
+
+.wb-ext__rules-add-btn {
+    flex-shrink: 0;
+    font-size: 0.75rem;
+    padding: 0.25rem 0.6rem;
+    background-color: rgba(76, 175, 80, 0.2);
+    border: 1px solid rgba(76, 175, 80, 0.35);
+    color: rgba(255, 255, 255, 0.7);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.15s, color 0.15s;
+}
+
+.wb-ext__rules-add-btn:hover {
+    background-color: rgba(76, 175, 80, 0.35);
+    color: #fff;
+}
+
 /* ==================== Modal Button Row ==================== */
 
 .wb-ext__modal-btn-row {

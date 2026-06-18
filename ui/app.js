@@ -213,8 +213,8 @@ export function openWorldEditor(context, worldId) {
     closeEditorModal();
 
     const world = worldId ? getWorldById(context, worldId) : null;
-    const isNew = !world;
-    const editWorldId = world ? world.id : null;
+    let isNew = !world;
+    let editWorldId = world ? world.id : null;
 
     const overlay = document.createElement('div');
     overlay.className = 'wb-ext__modal-overlay';
@@ -285,18 +285,143 @@ export function openWorldEditor(context, worldId) {
         aiEditBtn.textContent = 'AI Edit';
         aiEditBtn.disabled = !world && !genPrompt.value.trim();
 
-        const textarea = document.createElement('textarea');
-        textarea.className = 'text_pole wb-ext__modal-section-textarea';
-        textarea.rows = 3;
-        textarea.value = world ? (world.sections[key] || '') : '';
-        textarea.placeholder = `${label} of the world...`;
-        textarea.dataset.sectionKey = key;
-
         fieldHeader.append(fieldLabel, aiEditBtn);
-        fieldWrap.append(fieldHeader, textarea);
-        sectionsContainer.append(fieldWrap);
 
-        sectionFields[key] = { textarea, aiEditBtn };
+        let textarea;
+
+        if (key === 'rules') {
+            const initialValue = world ? (world.sections[key] || '') : '';
+
+            textarea = document.createElement('textarea');
+            textarea.className = 'text_pole wb-ext__modal-section-textarea';
+            textarea.style.display = 'none';
+            textarea.dataset.sectionKey = key;
+            textarea.value = initialValue;
+
+            let rulesItems = (initialValue || '').split('\n').map(s => s.trim()).filter(Boolean);
+
+            function syncRulesTextarea() {
+                textarea.value = rulesItems.join('\n');
+            }
+
+            const rulesContainer = document.createElement('div');
+            rulesContainer.className = 'wb-ext__rules-list';
+
+            function renderRulesList() {
+                const itemsEl = rulesContainer.querySelector('.wb-ext__rules-items');
+                if (itemsEl) itemsEl.remove();
+
+                const itemsWrap = document.createElement('div');
+                itemsWrap.className = 'wb-ext__rules-items';
+
+                rulesItems.forEach((ruleText, index) => {
+                    const item = document.createElement('div');
+                    item.className = 'wb-ext__rules-item';
+
+                    const textSpan = document.createElement('span');
+                    textSpan.className = 'wb-ext__rules-item-text';
+                    textSpan.textContent = ruleText;
+                    textSpan.title = 'Click to edit';
+
+                    textSpan.addEventListener('click', () => {
+                        const input = document.createElement('input');
+                        input.type = 'text';
+                        input.className = 'text_pole wb-ext__rules-item-input';
+                        input.value = rulesItems[index];
+
+                        item.replaceChild(input, textSpan);
+                        input.focus();
+                        input.select();
+
+                        const apply = () => {
+                            const newText = input.value.trim();
+                            if (newText) {
+                                rulesItems[index] = newText;
+                            } else {
+                                rulesItems.splice(index, 1);
+                            }
+                            syncRulesTextarea();
+                            renderRulesList();
+                        };
+
+                        input.addEventListener('blur', apply);
+                        input.addEventListener('keydown', (e) => {
+                            if (e.key === 'Enter') { e.preventDefault(); apply(); }
+                            if (e.key === 'Escape') { renderRulesList(); }
+                        });
+                    });
+
+                    const actionsWrap = document.createElement('div');
+                    actionsWrap.className = 'wb-ext__rules-item-actions';
+
+                    const removeBtn = document.createElement('button');
+                    removeBtn.className = 'menu_button wb-ext__rules-item-btn wb-ext__rules-item-btn--remove';
+                    removeBtn.textContent = '\u2715';
+                    removeBtn.title = 'Remove';
+                    removeBtn.addEventListener('click', () => {
+                        rulesItems.splice(index, 1);
+                        syncRulesTextarea();
+                        renderRulesList();
+                    });
+
+                    actionsWrap.append(removeBtn);
+                    item.append(textSpan, actionsWrap);
+                    itemsWrap.append(item);
+                });
+
+                rulesContainer.insertBefore(itemsWrap, rulesContainer.querySelector('.wb-ext__rules-add'));
+            }
+
+            const addRow = document.createElement('div');
+            addRow.className = 'wb-ext__rules-add';
+
+            const addInput = document.createElement('input');
+            addInput.type = 'text';
+            addInput.className = 'text_pole wb-ext__rules-add-input';
+            addInput.placeholder = 'New rule...';
+
+            const addBtn = document.createElement('button');
+            addBtn.className = 'menu_button wb-ext__rules-add-btn';
+            addBtn.textContent = 'Add';
+            addBtn.addEventListener('click', () => {
+                const val = addInput.value.trim();
+                if (val) {
+                    rulesItems.push(val);
+                    syncRulesTextarea();
+                    renderRulesList();
+                    addInput.value = '';
+                    addInput.focus();
+                }
+            });
+
+            addInput.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    addBtn.click();
+                }
+            });
+
+            addRow.append(addInput, addBtn);
+            rulesContainer.append(addRow);
+            renderRulesList();
+
+            fieldWrap.append(fieldHeader, rulesContainer, textarea);
+            sectionsContainer.append(fieldWrap);
+
+            sectionFields[key] = { textarea, aiEditBtn, rulesItems, renderRules: renderRulesList, syncRules: syncRulesTextarea };
+        } else {
+            textarea = document.createElement('textarea');
+            textarea.className = 'text_pole wb-ext__modal-section-textarea';
+            textarea.rows = 3;
+            textarea.value = world ? (world.sections[key] || '') : '';
+            textarea.placeholder = `${label} of the world...`;
+            textarea.dataset.sectionKey = key;
+
+            fieldWrap.append(fieldHeader, textarea);
+            sectionsContainer.append(fieldWrap);
+
+            sectionFields[key] = { textarea, aiEditBtn };
+        }
 
         // AI Edit handler
         aiEditBtn.addEventListener('click', async () => {
@@ -317,7 +442,15 @@ export function openWorldEditor(context, worldId) {
                 }
                 const result = await editSectionWithAI(targetId, key, instruction);
                 if (result.success) {
-                    textarea.value = result.text;
+                    const field = sectionFields[key];
+                    field.textarea.value = result.text;
+                    if (key === 'rules' && field.rulesItems && field.renderRules) {
+                        field.rulesItems.length = 0;
+                        const lines = (result.text || '').split('\n').map(s => s.trim()).filter(Boolean);
+                        field.rulesItems.push(...lines);
+                        field.syncRules();
+                        field.renderRules();
+                    }
                     showToast('Updated', `"${label}" edited.`, 'success');
                 } else {
                     showToast('Error', result.error, 'error');
@@ -336,7 +469,7 @@ export function openWorldEditor(context, worldId) {
     genPrompt.addEventListener('input', () => {
         const hasPrompt = genPrompt.value.trim().length > 0;
         genBtn.disabled = !hasPrompt || state.isGenerating;
-        if (!world) {
+        if (!world && !editWorldId) {
             for (const { key } of WORLD_SECTIONS) {
                 const field = sectionFields[key];
                 if (field) field.aiEditBtn.disabled = !hasPrompt;
@@ -356,9 +489,29 @@ export function openWorldEditor(context, worldId) {
         try {
             const result = await generateWorld(prompt, nameInput.value.trim());
             if (result.success) {
-                closeEditorModal();
-                showToast('Created', `"${result.world.name}" generated.`, 'success');
-                refreshUI();
+                nameInput.value = result.world.name;
+                if (isNew) {
+                    title.textContent = `Edit: ${result.world.name}`;
+                    isNew = false;
+                    editWorldId = result.world.id;
+                    saveBtn.style.display = '';
+                }
+                for (const { key } of WORLD_SECTIONS) {
+                    const field = sectionFields[key];
+                    const value = result.world.sections[key] || '';
+                    if (key === 'rules' && field.rulesItems && field.renderRules) {
+                        field.rulesItems.length = 0;
+                        const lines = value.split('\n').map(s => s.trim()).filter(Boolean);
+                        field.rulesItems.push(...lines);
+                        field.syncRules();
+                        field.renderRules();
+                    } else if (field.textarea) {
+                        field.textarea.value = value;
+                    }
+                }
+                showToast('Generated', `"${result.world.name}" created. Review and save.`, 'success');
+                genBtn.textContent = 'Regenerate';
+                genBtn.disabled = false;
             } else {
                 showToast('Error', result.error, 'error');
                 genBtn.disabled = false;
