@@ -519,15 +519,128 @@
         min-width: 0;
     }
 
+    /* ── Modal ── */
+    .wb-ext__modal-overlay {
+        align-items: flex-start;
+        padding: 0.5rem;
+    }
+
     .wb-ext__modal {
         width: 100%;
-        padding: 1rem;
+        max-width: 100%;
+        border-radius: 10px;
+        padding: 1rem 0.75rem;
+        margin: 0.5rem 0;
+        max-height: calc(100vh - 1rem);
+        overflow-y: auto;
     }
 
+    .wb-ext__modal-title {
+        font-size: 1rem;
+        margin-bottom: 0.6rem;
+    }
+
+    .wb-ext__modal-name {
+        font-size: 0.9rem;
+        padding: 0.45rem 0.5rem;
+        margin-bottom: 0.6rem;
+    }
+
+    /* ── Generate section ── */
+    .wb-ext__modal-gen-section {
+        padding: 0.5rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .wb-ext__modal-gen-prompt {
+        font-size: 0.85rem;
+        min-height: 3rem;
+    }
+
+    /* ── Sections list ── */
     .wb-ext__modal-sections {
-        max-height: 40vh;
+        max-height: 45vh;
+        gap: 0.35rem;
+        margin-bottom: 0.6rem;
     }
 
+    .wb-ext__modal-section-field {
+        padding: 0.35rem 0.4rem;
+    }
+
+    .wb-ext__modal-section-header {
+        flex-wrap: wrap;
+        gap: 0.3rem;
+    }
+
+    .wb-ext__modal-section-label {
+        font-size: 0.8rem;
+    }
+
+    .wb-ext__modal-section-ai-btn {
+        font-size: 0.72rem;
+        padding: 0.25rem 0.55rem;
+    }
+
+    .wb-ext__modal-section-textarea {
+        font-size: 0.82rem;
+        min-height: 2rem;
+    }
+
+    /* ── Button row ── */
+    .wb-ext__modal-btn-row {
+        gap: 0.4rem;
+    }
+
+    .wb-ext__modal-btn-row .menu_button {
+        flex: 1;
+        font-size: 0.82rem;
+        padding: 0.45rem 0.5rem;
+    }
+
+    /* ── Rules list ── */
+    .wb-ext__rules-item {
+        gap: 0.25rem;
+        padding: 0.35rem 0.35rem;
+    }
+
+    .wb-ext__rules-item-text {
+        font-size: 0.8rem;
+        white-space: normal;
+        word-break: break-word;
+    }
+
+    .wb-ext__rules-item-input {
+        font-size: 0.8rem;
+    }
+
+    .wb-ext__rules-item-actions {
+        gap: 0.15rem;
+    }
+
+    .wb-ext__rules-item-btn {
+        width: 1.5rem;
+        height: 1.5rem;
+        font-size: 0.7rem;
+    }
+
+    .wb-ext__rules-add {
+        flex-wrap: wrap;
+        gap: 0.3rem;
+    }
+
+    .wb-ext__rules-add-input {
+        font-size: 0.8rem;
+        flex: 1 1 100%;
+        min-width: 0;
+    }
+
+    .wb-ext__rules-add-btn {
+        font-size: 0.78rem;
+        padding: 0.3rem 0.7rem;
+    }
+
+    /* ── World cards ── */
     .wb-ext__world-card-header {
         flex-wrap: wrap;
     }
